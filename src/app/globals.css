@@ -2,32 +2,139 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+@keyframes growRotateShrink {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1) rotate(360deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0) rotate(720deg);
+    opacity: 0;
+  }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+@keyframes growText {
+  0% {
+    transform: scale(0);
   }
+  25% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-grow-rotate {
+  animation: growRotateShrink 3s forwards;
+}
+
+.animate-grow-text {
+  animation: growText 1s forwards;
+}
+
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 1s;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 1s;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: linear-gradient(45deg, rgb(249, 143, 143), rgb(245, 194, 100)), rgb(243, 218, 181);
+  min-height: 100vh;
+  margin: 0; /* Optional: Remove default margin */
+  font-family: 'Mali', sans-serif;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+.blur-background {
+  position: fixed;
+  background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent white background */
+  backdrop-filter: blur(8px); /* Adjust the blur radius as needed */
+  z-index: 100; /* Ensure the blur overlay appears above other content */
+}
+
+@keyframes slideRight {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
+
+@keyframes slideLeft {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+}
+
+.in-view-Right {
+  opacity: 1;
+  animation: slideRight 0.5s linear forwards;
+}
+
+.out-of-view-Left {
+  animation: slideLeft 0.5s linear forwards;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+}
+
+.in-view {
+  opacity: 1;
+  animation: slideUp 0.5s linear forwards;
+}
+
+.out-of-view {
+  animation: slideDown 0.5s linear forwards;
+}
+
+.animate-slide {
+  opacity: 0; /* Start hidden */
+  transition: opacity 0.2s ease-out; /* Smooth opacity transition */
+}
+
+
+
